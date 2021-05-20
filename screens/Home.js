@@ -1,12 +1,13 @@
 import React from 'react'
 import { Button, StyleSheet, Text, View } from 'react-native'
+// import Who from '../screens/Who'
 
 export default function Home({ navigation }) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Home Screen</Text>
 			<Button title='Fetch' onPress={() => navigation.navigate('Fetch')} />
-			<Button title='Scan' onPress={() => navigation.navigate('Scan')} />
+			<Button title='Who?' onPress={() => navigation.navigate('Who')} />
 		</View>
 	)
 }

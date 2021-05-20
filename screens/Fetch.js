@@ -4,6 +4,7 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 export default function Fetch({ navigation }) {
 	return (
 		<View style={styles.container}>
+			<Text style={styles.text}>Fetch</Text>
 			<Button title='Go to Home' onPress={() => navigation.navigate('Home')} />
 			<Button title='Go back' onPress={() => navigation.goBack()} />
 
@@ -11,8 +12,6 @@ export default function Fetch({ navigation }) {
 				title='Go to Settings'
 				onPress={() => navigation.navigate('Settings')}
 			/> */}
-
-			<Text style={styles.text}>Fetch</Text>
 		</View>
 	)
 }

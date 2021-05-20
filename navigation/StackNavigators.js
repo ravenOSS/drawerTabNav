@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { Button } from 'react-native'
+
 import Home from '../screens/Home'
-import Scan from '../screens/Scan'
+import Scan from '../screens/Who'
 import Fetch from '../screens/Fetch'
 import About from '../screens/About'
 import Settings from '../screens/Settings'
@@ -35,9 +37,6 @@ const BottomTabNav = () => {
 	)
 }
 
-import { createStackNavigator } from '@react-navigation/stack'
-const Stack = createStackNavigator()
-
 const screenOptionStyle = {
 	headerStyle: {
 		backgroundColor: 'orange',
@@ -46,12 +45,15 @@ const screenOptionStyle = {
 	headerBackTitle: 'Back',
 }
 
+import { createStackNavigator } from '@react-navigation/stack'
+const Stack = createStackNavigator()
+
 const Config = createStackNavigator()
 const SettingsStackNavigator = () => {
 	return (
 		<Config.Navigator screenOptions={screenOptionStyle}>
 			<Config.Screen name='About' component={About} />
-			<Config.Screen name='Settings' component={Settings} />
+			<Config.Screen name='Config' component={Settings} />
 		</Config.Navigator>
 	)
 }
@@ -60,21 +62,43 @@ const Main = createStackNavigator()
 const MainStackNavigator = () => {
 	return (
 		<Main.Navigator initialRouteName='Drawer' screenOptions={screenOptionStyle}>
-			<Main.Screen name='Tabs' component={BottomTabNav} />
-			<Main.Screen name='Drawer' component={DrawerNav} />
+			<Main.Screen
+				name='Home'
+				component={Home}
+				options={{
+					title: 'Home View',
+					headerRight: () => (
+						<Button title={'Alert'} onPress={() => alert('Home Alerted')} />
+					),
+					headerBackTitle: 'Back',
+				}}
+			/>
+			<Main.Screen
+				name='Fetch'
+				component={Fetch}
+				options={{
+					title: 'Fetch View',
+					headerRight: () => (
+						<Button title={'Alert'} onPress={() => alert('Fetch Alerted')} />
+					),
+					headerBackTitle: 'Back',
+				}}
+			/>
+			<Main.Screen
+				name='Scan'
+				component={Scan}
+				options={{
+					title: 'Scan View',
+					headerRight: () => (
+						<Button title={'Alert'} onPress={() => alert('Scan Alerted')} />
+					),
+					headerBackTitle: 'Back',
+				}}
+			/>
+			<Main.Screen name='Left' component={DrawerNav} />
 		</Main.Navigator>
 	)
 }
-
-// const Main = createStackNavigator()
-// const MainStackNavigator = () => {
-// 	return (
-// 		<Main.Navigator initialRouteName='Drawer' screenOptions={screenOptionStyle}>
-// 			<Main.Screen name='Tabs' component={BottomTabNav} />
-// 			<Main.Screen name='Drawer' component={DrawerNav} />
-// 		</Main.Navigator>
-// 	)
-// }
 
 // export { CoreStackNavigator }
 // export { CoreStackNavigator, HomeStackNavigator }

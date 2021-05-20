@@ -1,12 +1,8 @@
 import React from 'react'
-// import {
-// 	// SettingsStackNavigator,
-// 	// CoreStackNavigator,
-// 	HomeStackNavigator,
-// } from './StackNavigators'
 import Home from '../screens/Home'
 import Fetch from '../screens/Fetch'
-import Scan from '../screens/Scan'
+import Who from '../screens/Who'
+
 const screenOptionStyle = {
 	headerStyle: {
 		backgroundColor: 'orange',
@@ -45,8 +41,8 @@ export default function BottomTabNav() {
 				}}
 			/>
 			<Tab.Screen
-				name='Scan'
-				component={Scan}
+				name='Who'
+				component={Who}
 				options={{
 					title: 'Scan View',
 					headerRight: () => (

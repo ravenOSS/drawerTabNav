@@ -4,12 +4,12 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 export default function Settings({ navigation }) {
 	return (
 		<View style={styles.container}>
+			<Text style={styles.text}>Settings</Text>
 			{/* <Button title='Go back' onPress={() => navigation.goBack()} /> */}
 			<Button
 				title='Go to About Page'
 				onPress={() => navigation.navigate('About')}
 			/>
-			<Text style={styles.text}>Settings</Text>
 		</View>
 	)
 }

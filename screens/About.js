@@ -4,15 +4,14 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 export default function About({ navigation }) {
 	return (
 		<View style={styles.container}>
-			{/* <Button title='Go to Home' onPress={() => navigation.navigate('Home')} /> */}
-			<Button title='Go back' onPress={() => navigation.goBack()} />
+			<Text style={styles.text}>About</Text>
+			<Button title='Go to Home' onPress={() => navigation.navigate('Home')} />
+			{/* <Button title='Go back' onPress={() => navigation.goBack()} /> */}
 
 			<Button
 				title='Go to Settings'
 				onPress={() => navigation.navigate('Settings')}
 			/>
-
-			<Text style={styles.text}>About</Text>
 		</View>
 	)
 }

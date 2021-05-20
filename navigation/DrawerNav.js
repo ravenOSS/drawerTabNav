@@ -1,9 +1,11 @@
 import * as React from 'react'
+import { withTheme } from 'react-native-paper'
+import { Ionicons } from '@expo/vector-icons'
 // import SettingsStackNavigator from './SettingsStack'
 import About from '../screens/About'
 import Settings from '../screens/Settings'
 // import { SettingsStackNavigator } from './StackNavigators'
-// import BottomTabNav from './BottomTabNav'
+import MainNav from './MainNav'
 
 const screenOptionStyle = {
 	headerStyle: {
@@ -14,29 +16,40 @@ const screenOptionStyle = {
 }
 
 import { createDrawerNavigator } from '@react-navigation/drawer'
+// import { withTheme } from 'react-native-paper'
 const Drawer = createDrawerNavigator()
 
-export default function DrawerNav() {
+const DrawerNav = ({ props, navigation }) => {
+	// const { colors } = props.theme
 	return (
 		<Drawer.Navigator screenOptions={screenOptionStyle}>
-			{/* <Drawer.Screen name='Home' component={BottomTabNav} /> */}
+			<Drawer.Screen
+				name='Home'
+				component={MainNav}
+				// options={{
+				// 	title: 'MainNav',
+				// 	headerRight: () => (
+				// 		<Button title={'Alert'} onPress={() => alert('MainNav Alerted')} />
+				// 	),
+				// 	headerBackTitle: 'Back',
+				// }}
+			/>
 			<Drawer.Screen
 				name='About'
 				component={About}
 				options={{
-					title: 'About View',
+					title: 'About',
 					headerRight: () => (
 						<Button title={'Alert'} onPress={() => alert('About Alerted')} />
 					),
 					headerBackTitle: 'Back',
 				}}
 			/>
-			{/* <Drawer.Screen name='Settings' component={SettingsStackNavigator} /> */}
 			<Drawer.Screen
 				name='Settings'
 				component={Settings}
 				options={{
-					title: 'Settings View',
+					title: 'Settings',
 					headerRight: () => (
 						<Button title={'Alert'} onPress={() => alert('Settings Alerted')} />
 					),
@@ -47,13 +60,4 @@ export default function DrawerNav() {
 	)
 }
 
-// export default function DrawerNav() {
-// 	return (
-// 		<Drawer.Navigator screenOptions={screenOptionStyle}>
-// 			<Drawer.Screen name='Home' component={BottomTabNav} />
-// 			{/* <Drawer.Screen name='About' component={About} /> */}
-// 			<Drawer.Screen name='Settings' component={SettingsStackNavigator} />
-// 			{/* <Drawer.Screen name='Settings' component={Settings} /> */}
-// 		</Drawer.Navigator>
-// 	)
-// }
+export default withTheme(DrawerNav)
