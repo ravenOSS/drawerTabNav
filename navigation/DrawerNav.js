@@ -16,7 +16,6 @@ const screenOptionStyle = {
 }
 
 import { createDrawerNavigator } from '@react-navigation/drawer'
-// import { withTheme } from 'react-native-paper'
 const Drawer = createDrawerNavigator()
 
 const DrawerNav = ({ props, navigation }) => {
