@@ -2,12 +2,16 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text, Button } from 'react-native-paper'
 import { useTheme } from 'react-native-paper'
+import NavButton from '../components/NavButton'
+
 
 export default function Data({ navigation, route }) {
 	const { colors } = useTheme()
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Data Panel</Text>
+			<NavButton toWhere='Fetch' title='Fetch' />
+
 			<Button
 				style={{
 					borderColor: '#f08e25',

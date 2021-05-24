@@ -18,7 +18,7 @@ const screenOptionStyle = {
 import { createDrawerNavigator } from '@react-navigation/drawer'
 const Drawer = createDrawerNavigator()
 
-const DrawerNav = ({ props, navigation }) => {
+const DrawerNav = ({ navigation }) => {
 	// const { colors } = props.theme
 	return (
 		<Drawer.Navigator screenOptions={screenOptionStyle}>

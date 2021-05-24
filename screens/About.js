@@ -1,42 +1,16 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text, Button } from 'react-native-paper'
+import { Text } from 'react-native-paper'
 import { useTheme } from 'react-native-paper'
+import NavButton from '../components/NavButton'
 
 export default function About({ navigation }) {
 	const { colors } = useTheme()
 	return (
 		<View style={styles.container}>
-			<Button
-				style={{
-					borderColor: '#f08e25',
-					borderWidth: 2,
-					width: 225,
-					margin: 10,
-				}}
-				color='#f08e25'
-				labelStyle={{ color: '#f08e25', fontSize: 18 }}
-				mode='outlined'
-				theme={useTheme}
-				onPress={() => navigation.navigate('Home')}
-			>
-				Go Back
-			</Button>
-			<Button
-				style={{
-					borderColor: '#f08e25',
-					borderWidth: 2,
-					width: 225,
-					margin: 10,
-				}}
-				color='#f08e25'
-				labelStyle={{ color: '#f08e25', fontSize: 18 }}
-				mode='outlined'
-				theme={useTheme}
-				onPress={() => navigation.navigate('Settings')}
-			>
-				Settings
-			</Button>
+			<Text style={styles.text}>About</Text>
+			<NavButton toWhere='Home' title='Home' />
+			<NavButton toWhere='Settings' title='Settings' />
 		</View>
 	)
 }

@@ -21,20 +21,24 @@ export default function App() {
 			<NavigationContainer>
 				<Stack.Navigator>
 					<Stack.Screen name='Root' component={DrawerNav} />
-					{/* <Stack.Screen name='Home' component={Home} /> */}
 				</Stack.Navigator>
 			</NavigationContainer>
 		</PaperProvider>
 	)
 }
 
-// export default function App() {
-// 	return (
-// 		<NavigationContainer>
-// 			<Stack.Navigator>
-// 				<Stack.Screen name='Main' component={MainNav} />
-// 				{/* <Stack.Screen name='Home' component={Home} /> */}
-// 			</Stack.Navigator>
-// 		</NavigationContainer>
-// 	)
-// }
+// const theme = {
+//   colors: {
+//     primary: '#90eee1',
+//     accent: '#6356e5',
+//   },
+//   fonts:{
+//     regular:16,
+//     small:12,
+//   },
+//   typography:{
+//   title:'Roboto',
+//    paragraph:'Open Sans'  
+  
+//   }
+// };

@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text, Button, useTheme } from 'react-native-paper'
+import { Text, useTheme } from 'react-native-paper'
+import NavButton from '../components/NavButton'
+import Constants from 'expo-constants'
 
 export default function Home({ navigation }) {
 	const { colors } = useTheme()
@@ -8,38 +10,8 @@ export default function Home({ navigation }) {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Home</Text>
-			<Button
-				style={{
-					borderColor: '#f08e25',
-					borderWidth: 1,
-					width: 225,
-					margin: 10,
-				}}
-				// color='#f08e25'
-				labelStyle={{ color: '#f08e25', fontSize: 18 }}
-				mode='outlined'
-				borderColor='#f08e25'
-				theme={useTheme}
-				onPress={() => navigation.navigate('Fetch')}
-			>
-				Fetch
-			</Button>
-			<Button
-				style={{
-					borderColor: '#f08e25',
-					borderWidth: 1,
-					width: 225,
-					margin: 10,
-				}}
-				color='#f08e25'
-				borderColor='#f08e25'
-				labelStyle={{ color: '#f08e25', fontSize: 18 }}
-				mode='outlined'
-				theme={useTheme}
-				onPress={() => navigation.navigate('Who')}
-			>
-				Who?
-			</Button>
+			<NavButton toWhere='Fetch' title='Fetch' />
+			<NavButton toWhere='Who' title='Who?' />
 		</View>
 	)
 }
@@ -49,7 +21,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		// padding: 40,
+		padding: Constants.statusBarHeight,
 		// margin: 60,
 	},
 	text: {
