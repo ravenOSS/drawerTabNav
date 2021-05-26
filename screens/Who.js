@@ -13,6 +13,7 @@ export default function Who({ navigation }) {
 		<View style={styles.container}>
 			<Text style={styles.text}>Scan ID</Text>
 			<NavButton toWhere='Home' title='Home' />
+			<NavButton toWhere='Fetch' title='Fetch' />
 			<NavButton toWhere='Data' title='Data' />
 
 			<Button

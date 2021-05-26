@@ -4,6 +4,14 @@ import { Text } from 'react-native-paper'
 import { useTheme } from 'react-native-paper'
 import NavButton from '../components/NavButton'
 
+const screenOptionStyle = {
+	headerStyle: {
+		backgroundColor: '#9AC4F8',
+	},
+	headerTintColor: 'white',
+	headerBackTitle: 'Back',
+}
+
 export default function Fetch({ navigation }) {
 	const { colors } = useTheme()
 	return (

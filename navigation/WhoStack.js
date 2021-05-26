@@ -16,11 +16,7 @@ const Scan = createStackNavigator()
 const WhoStackNav = () => {
 	return (
 		<Scan.Navigator mode='modal' screenOptions={screenOptionStyle}>
-			<Scan.Screen
-				name='Who'
-				component={Who}
-				options={{ headerShown: false }}
-			/>
+			<Scan.Screen name='Who' component={Who} options={{ headerShown: true }} />
 			<Scan.Screen name='Data' component={Data} />
 		</Scan.Navigator>
 	)

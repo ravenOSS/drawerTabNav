@@ -19,26 +19,18 @@ export default function App() {
 	return (
 		<PaperProvider theme={theme}>
 			<NavigationContainer>
-				<Stack.Navigator>
+				<Stack.Navigator
+					initialRouteName='Home'
+					headerMode='float'
+					headerShown='false'
+					screenOptions={{
+						headerTintColor: 'white',
+						headerStyle: { backgroundColor: '#f08e25' },
+					}}
+				>
 					<Stack.Screen name='Root' component={DrawerNav} />
 				</Stack.Navigator>
 			</NavigationContainer>
 		</PaperProvider>
 	)
 }
-
-// const theme = {
-//   colors: {
-//     primary: '#90eee1',
-//     accent: '#6356e5',
-//   },
-//   fonts:{
-//     regular:16,
-//     small:12,
-//   },
-//   typography:{
-//   title:'Roboto',
-//    paragraph:'Open Sans'  
-  
-//   }
-// };

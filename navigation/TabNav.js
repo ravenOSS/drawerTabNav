@@ -14,15 +14,18 @@ const screenOptionsStyle = {
 	headerBackTitle: 'Back',
 }
 
+
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 const Tab = createMaterialBottomTabNavigator()
-export default function MainNav(props) {
+export default function TabNav(props) {
 	const { colors } = useTheme
 	return (
 		<Tab.Navigator
 			screenOptions={screenOptionsStyle}
 			shifting={false}
 			initialRouteName='Home'
+			// headerMode='none'
 			activeColor='#ffff8d'
 			inactiveColor='#fb8c00'
 			barStyle={{ backgroundColor: 'black' }}
@@ -31,11 +34,8 @@ export default function MainNav(props) {
 				name='Home'
 				component={Home}
 				options={{
+					title: 'Home',
 					tabBarLabel: 'Home',
-					headerRight: () => (
-						<Button title={'Alert'} onPress={() => alert('Home Alerted')} />
-					),
-					headerBackTitle: 'Back',
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons name='md-home-outline' color={activeColor} size={26} />
 					),
@@ -59,7 +59,11 @@ export default function MainNav(props) {
 				name='Who'
 				component={WhoStack}
 				options={{
+					title: 'Identify',
 					tabBarLabel: 'Who?',
+					headerRight: () => (
+						<Button title={'Alert'} onPress={() => alert('Home Alerted')} />
+					),
 					headerBackTitle: 'Back',
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons name='md-person-outline' color={activeColor} size={26} />
