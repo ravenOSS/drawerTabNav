@@ -2,6 +2,9 @@ import * as React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 
+// This navigation button requires two properties:
+// title: String
+// toWhere: String (Screen)
 export default function NavButton({ title, toWhere }) {
 	const navigation = useNavigation()
 	//TODO Note use of hook. Navigation is NOT automatically available

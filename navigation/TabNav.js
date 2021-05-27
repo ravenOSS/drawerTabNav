@@ -2,39 +2,53 @@ import React from 'react'
 import { useTheme } from 'react-native-paper'
 import { Ionicons } from '@expo/vector-icons'
 
-import WhoStack from './WhoStack'
 import Home from '../screens/Home'
 import Fetch from '../screens/Fetch'
+import { WhoStackNav } from './WhoStackNav'
 
-const screenOptionsStyle = {
+const screenOptionStyle = {
 	headerStyle: {
-		backgroundColor: 'orange',
+		backgroundColor: '#f08e25',
 	},
-	headerTintColor: 'white',
-	headerBackTitle: 'Back',
+	headerTintColor: '#fff',
+	headerShown: true,
 }
 
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 
+function getHeaderTitle(route) {
+	const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+
+	switch (routeName) {
+		case 'Home':
+			return 'tabHome'
+		case 'Fetch':
+			return 'tabFetch'
+		case 'Who':
+			return 'tabWho'
+	}
+}
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 const Tab = createMaterialBottomTabNavigator()
-export default function TabNav(props) {
+export default function TabNav(navigation) {
 	const { colors } = useTheme
 	return (
 		<Tab.Navigator
-			screenOptions={screenOptionsStyle}
+			screenOptions={screenOptionStyle}
+			headerMode='screen'
 			shifting={false}
 			initialRouteName='Home'
-			// headerMode='none'
+			headerMode='screen'
+			headerShown='true'
 			activeColor='#ffff8d'
 			inactiveColor='#fb8c00'
-			barStyle={{ backgroundColor: 'black' }}
+			barStyle={{ backgroundColor: '#000' }}
 		>
 			<Tab.Screen
 				name='Home'
 				component={Home}
 				options={{
-					title: 'Home',
 					tabBarLabel: 'Home',
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons name='md-home-outline' color={activeColor} size={26} />
@@ -45,7 +59,11 @@ export default function TabNav(props) {
 				name='Fetch'
 				component={Fetch}
 				options={{
-					title: 'Fetch View',
+					tabBarLabel: 'Fetch',
+					headerStyle: { backgroundColor: 'colors.primary' },
+					headerTintColor: 'colors.accent',
+					headerTitle: 'Fetch',
+					headerShown: true,
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons
 							name='md-git-network-outline'
@@ -57,14 +75,11 @@ export default function TabNav(props) {
 			/>
 			<Tab.Screen
 				name='Who'
-				component={WhoStack}
+				component={WhoStackNav}
 				options={{
-					title: 'Identify',
 					tabBarLabel: 'Who?',
-					headerRight: () => (
-						<Button title={'Alert'} onPress={() => alert('Home Alerted')} />
-					),
-					headerBackTitle: 'Back',
+					headerTitle: 'Who',
+					headerShown: true,
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons name='md-person-outline' color={activeColor} size={26} />
 					),

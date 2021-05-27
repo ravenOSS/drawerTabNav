@@ -1,8 +1,8 @@
+import Constants from 'expo-constants'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 import NavButton from '../components/NavButton'
-import Constants from 'expo-constants'
 
 export default function Home({ navigation }) {
 	const { colors } = useTheme()
