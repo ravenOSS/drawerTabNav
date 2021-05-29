@@ -6,17 +6,21 @@ import Who from '../screens/Who'
 
 const screenOptionStyle = {
 	headerStyle: {
-		backgroundColor: '#9AC4F8',
+		backgroundColor: '#651fff',
 	},
-	headerTintColor: 'black',
+	headerTintColor: '#fff',
+	headerTitleStyle: {
+		fontSize: 20,
+		fontWeight: '900',
+	},
 }
 
 function getHeaderTitle(route) {
-	const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
+	const routeName = getFocusedRouteNameFromRoute(route) ?? 'Who'
 
 	switch (routeName) {
-		case 'WhoStack Who Focus':
-			return 'Who '
+		case 'Who':
+			return 'WhoStack Who Focus '
 		case 'Data':
 			return 'WhoStack Data Focus'
 	}
@@ -29,18 +33,20 @@ function WhoStackNav() {
 			<Scan.Screen
 				name='Who'
 				component={Who}
-				options={({ route }) => ({
-					headerTitle: getHeaderTitle(route),
-					// headerShown: true,
-				})}
+				options={{ title: 'WhoStack Who Focus' }}
+				// options={({ route }) => ({
+				// 	headerTitle: getHeaderTitle(route),
+				// 	// headerShown: true,
+				// })}
 			/>
 			<Scan.Screen
 				name='Data'
 				component={Data}
-				options={({ route }) => ({
-					headerTitle: getHeaderTitle(route),
-					// headerShown: true,
-				})}
+				options={{ title: 'WhoStackNav Data Focus' }}
+				// options={({ route }) => ({
+				// 	headerTitle: getHeaderTitle(route),
+				// 	// headerShown: true,
+				// })}
 			/>
 		</Scan.Navigator>
 	)

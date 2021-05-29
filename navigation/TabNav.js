@@ -1,9 +1,10 @@
+import { Ionicons } from '@expo/vector-icons'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import React from 'react'
 import { useTheme } from 'react-native-paper'
-import { Ionicons } from '@expo/vector-icons'
-
-import Home from '../screens/Home'
-import Fetch from '../screens/Fetch'
+import { DataStoreStackNav } from './DataStoreStackNav'
+import { HomeStackNav } from './HomeStackNav'
 import { WhoStackNav } from './WhoStackNav'
 
 const screenOptionStyle = {
@@ -11,10 +12,10 @@ const screenOptionStyle = {
 		backgroundColor: '#f08e25',
 	},
 	headerTintColor: '#fff',
-	headerShown: true,
+	headerTitleStyle: {
+		fontWeight: 'bold',
+	},
 }
-
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 
 function getHeaderTitle(route) {
 	const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
@@ -29,7 +30,6 @@ function getHeaderTitle(route) {
 	}
 }
 
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 const Tab = createMaterialBottomTabNavigator()
 export default function TabNav(navigation) {
 	const { colors } = useTheme
@@ -39,7 +39,6 @@ export default function TabNav(navigation) {
 			headerMode='screen'
 			shifting={false}
 			initialRouteName='Home'
-			headerMode='screen'
 			headerShown='true'
 			activeColor='#ffff8d'
 			inactiveColor='#fb8c00'
@@ -47,43 +46,36 @@ export default function TabNav(navigation) {
 		>
 			<Tab.Screen
 				name='Home'
-				component={Home}
-				options={{
+				component={HomeStackNav}
+				options={({ route }) => ({
+					headerTitle: getHeaderTitle(route),
 					tabBarLabel: 'Home',
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons name='md-home-outline' color={activeColor} size={26} />
 					),
-				}}
+				})}
 			/>
 			<Tab.Screen
 				name='Fetch'
-				component={Fetch}
-				options={{
+				component={DataStoreStackNav}
+				options={({ route }) => ({
+					headerTitle: getHeaderTitle(route),
 					tabBarLabel: 'Fetch',
-					headerStyle: { backgroundColor: 'colors.primary' },
-					headerTintColor: 'colors.accent',
-					headerTitle: 'Fetch',
-					headerShown: true,
 					tabBarIcon: ({ color: activeColor }) => (
-						<Ionicons
-							name='md-git-network-outline'
-							color={activeColor}
-							size={26}
-						/>
+						<Ionicons name='md-list-sharp' color={activeColor} size={26} />
 					),
-				}}
+				})}
 			/>
 			<Tab.Screen
 				name='Who'
 				component={WhoStackNav}
-				options={{
+				options={({ route }) => ({
+					headerTitle: getHeaderTitle(route),
 					tabBarLabel: 'Who?',
-					headerTitle: 'Who',
-					headerShown: true,
 					tabBarIcon: ({ color: activeColor }) => (
 						<Ionicons name='md-person-outline' color={activeColor} size={26} />
 					),
-				}}
+				})}
 			/>
 		</Tab.Navigator>
 	)

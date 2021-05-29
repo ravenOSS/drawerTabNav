@@ -4,14 +4,13 @@ import { Text } from 'react-native-paper'
 import { useTheme } from 'react-native-paper'
 import NavButton from '../components/NavButton'
 
-export default function Settings({ navigation }) {
+export default function DataDsiplay({ navigation }) {
 	const { colors } = useTheme()
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>Settings</Text>
-			<NavButton toWhere='Home' title='Home' />
-
-			<NavButton toWhere='About' title='About' />
+			<Text style={styles.text}>Stored Data Details</Text>
+			<NavButton title='Home' toWhere='Home' />
+			<NavButton title='Who' toWhere='Who' />
 		</View>
 	)
 }
@@ -21,10 +20,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		padding: 40,
+		// padding: 40,
+		// margin: 60,
 	},
 	text: {
 		fontSize: 30,
-		fontWeight: '900',
+		fontWeight: '700',
 	},
 })

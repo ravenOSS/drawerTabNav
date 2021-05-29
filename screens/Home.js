@@ -12,6 +12,7 @@ export default function Home({ navigation }) {
 			<Text style={styles.text}>Home</Text>
 			<NavButton toWhere='Fetch' title='Fetch' />
 			<NavButton toWhere='Who' title='Who?' />
+			<NavButton toWhere='HomeData' title='HomeData' />
 		</View>
 	)
 }
