@@ -1,16 +1,16 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
-import { useTheme } from 'react-native-paper'
-import NavButton from '../components/NavButton'
+import { Text, useTheme } from 'react-native-paper'
+import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
-export default function DataDsiplay({ navigation }) {
+export default function DataDetails({ navigation }) {
 	const { colors } = useTheme()
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Stored Data Details</Text>
 			<NavButton title='Home' toWhere='Home' />
 			<NavButton title='Who' toWhere='Who' />
+			<NavButtonGoBack />
 		</View>
 	)
 }

@@ -1,29 +1,24 @@
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 import React from 'react'
-import Data from '../screens/Data'
+import { Ionicons } from '@expo/vector-icons'
+
+
+import WhoDetails from '../screens/WhoDetails'
 import Who from '../screens/Who'
+import { Button } from 'react-native-paper'
 
 const screenOptionStyle = {
 	headerStyle: {
-		backgroundColor: '#651fff',
+		backgroundColor: '#fb8c00',
 	},
 	headerTintColor: '#fff',
 	headerTitleStyle: {
-		fontSize: 20,
-		fontWeight: '900',
+		fontSize: 25,
+		fontWeight: '700',
 	},
-}
-
-function getHeaderTitle(route) {
-	const routeName = getFocusedRouteNameFromRoute(route) ?? 'Who'
-
-	switch (routeName) {
-		case 'Who':
-			return 'WhoStack Who Focus '
-		case 'Data':
-			return 'WhoStack Data Focus'
-	}
+	headerTitleAlign: 'center',
+	headerMode: 'screen',
 }
 
 const Scan = createStackNavigator()
@@ -33,28 +28,38 @@ function WhoStackNav() {
 			<Scan.Screen
 				name='Who'
 				component={Who}
-				options={{ title: 'WhoStack Who Focus' }}
-				// options={({ route }) => ({
-				// 	headerTitle: getHeaderTitle(route),
-				// 	// headerShown: true,
-				// })}
+				options={({ navigation }) => ({
+					headerTitle: 'Who Focus',
+					headerLeft: () => (
+						<Button
+							icon={({ color, size }) => (
+								<Ionicons name='md-menu-sharp' size={26} color='#000' />
+							)}
+							onPress={() => navigation.openDrawer()}
+						/>
+					),
+				})}
 			/>
 			<Scan.Screen
-				name='Data'
-				component={Data}
-				options={{ title: 'WhoStackNav Data Focus' }}
-				// options={({ route }) => ({
-				// 	headerTitle: getHeaderTitle(route),
-				// 	// headerShown: true,
-				// })}
+				name='WhoDetails'
+				component={WhoDetails}
+				options={{
+					title: 'Who Details',
+				}}
 			/>
 		</Scan.Navigator>
 	)
 }
-{
-	/* <Scan.Screen name='Who' component={Who} options={{ headerShown: true }} />
-<Scan.Screen name='Data' component={Data} /> */
-}
+
+// options={({ navigation }) => ({
+// 	title: "React Navigation",
+// 	headerLeft: () =>
+// 		<Icon
+// 			onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+// 			style={[{ color: 'white', marginLeft: 8 }]}
+// 			size={24}
+// 			name={'menu'}
+// 		/>
+// })
 
 export { WhoStackNav }
-// export { WhoStackNav }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
-import { useTheme } from 'react-native-paper'
-import NavButton from '../components/NavButton'
+import { Text, useTheme } from 'react-native-paper'
+import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
 export default function DataFetch({ navigation }) {
 	const { colors } = useTheme()

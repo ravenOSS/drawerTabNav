@@ -1,9 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text, Button } from 'react-native-paper'
-import { useTheme } from 'react-native-paper'
-import NavButton from '../components/NavButton'
-
+import { Button, Text, useTheme } from 'react-native-paper'
+import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
 export default function Data({ navigation, route }) {
 	const { colors } = useTheme()
@@ -44,6 +42,6 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		fontSize: 30,
-		fontWeight: '900',
+		fontWeight: '700',
 	},
 })

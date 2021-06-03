@@ -1,8 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
-import { useTheme } from 'react-native-paper'
-import NavButton from '../components/NavButton'
+import { Text, useTheme } from 'react-native-paper'
+import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
 export default function About({ navigation }) {
 	const { colors } = useTheme()
@@ -11,6 +10,7 @@ export default function About({ navigation }) {
 			<Text style={styles.text}>About</Text>
 			<NavButton toWhere='Home' title='Home' />
 			<NavButton toWhere='Settings' title='Settings' />
+			<NavButtonGoBack />
 		</View>
 	)
 }
@@ -20,10 +20,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		padding: 40,
+		// padding: Constants.statusBarHeight,
+
+		// margin: 60,
 	},
 	text: {
 		fontSize: 30,
-		fontWeight: '900',
+		fontWeight: '700',
 	},
 })

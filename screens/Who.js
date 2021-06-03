@@ -1,19 +1,17 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
-import NavButton from '../components/NavButton'
+import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
 export default function Who({ navigation }) {
 	const { colors } = useTheme()
-
-	//TODO Navigation goes to Data instead of Who? parent screen
 
 	return (
 		<View style={styles.container}>
 			<Text style={styles.text}>Scan ID</Text>
 			<NavButton toWhere='Home' title='Home' />
 			<NavButton toWhere='Fetch' title='Fetch' />
-			<NavButton toWhere='Data' title='Data' />
+			<NavButton toWhere='WhoDetails' title='Who Details' />
 		</View>
 	)
 }
@@ -23,11 +21,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		// padding: 40,
+		// padding: Constants.statusBarHeight,
+
 		// margin: 60,
 	},
 	text: {
 		fontSize: 30,
-		fontWeight: '800',
+		fontWeight: '700',
 	},
 })

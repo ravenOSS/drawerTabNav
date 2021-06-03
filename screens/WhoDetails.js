@@ -1,22 +1,18 @@
-// import Constants from 'expo-constants'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text, useTheme } from 'react-native-paper'
+import { Button, Text, useTheme } from 'react-native-paper'
 import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
-export default function Home({ navigation }) {
+export default function WhoDetails({ navigation, route }) {
 	const { colors } = useTheme()
-
 	return (
 		<View style={styles.container}>
-			<Text style={styles.text}>Home</Text>
+			<Text style={styles.text}>Data Panel</Text>
 			<NavButton toWhere='Fetch' title='Fetch' />
-			<NavButton toWhere='Who' title='Who?' />
-			<NavButton toWhere='HomeData' title='HomeData' />
+			<NavButtonGoBack title='Close Details Panel' />
 		</View>
 	)
 }
-
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,

@@ -1,8 +1,5 @@
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import {
-	getFocusedRouteNameFromRoute,
-	NavigationContainer,
-} from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import * as React from 'react'
 import {
 	DefaultTheme,
@@ -13,19 +10,6 @@ import {
 import TabNav from './navigation/TabNav'
 import About from './screens/About'
 import Settings from './screens/Settings'
-
-function getHeaderTitle(route) {
-	const routeName = getFocusedRouteNameFromRoute(route) ?? 'Home'
-
-	switch (routeName) {
-		case 'Home':
-			return 'HomeFocus'
-		case 'Settings':
-			return 'SettingsFocus'
-		case 'About':
-			return 'AboutFocus'
-	}
-}
 
 const theme = {
 	...DefaultTheme,
@@ -40,15 +24,33 @@ const theme = {
 
 const screenOptionStyle = {
 	headerStyle: {
-		// backgroundColor: 'transparent',
 		backgroundColor: '#c0ca33',
 	},
 	headerTintColor: '#fff',
-	headerShown: true,
 	headerTitleStyle: {
 		fontSize: 25,
-		fontWeight: '900',
+		fontWeight: '700',
 	},
+	headerMode: 'screen',
+	headerTitleAlign: 'center',
+}
+
+const drawerStyle = {
+	paddingTop: 40,
+	backgroundColor: '#000',
+	width: 240,
+}
+
+const ContentOptions = {
+	activeTintColor: '#c0ca33',
+	activeBackgroundColor: '#000',
+	inactiveTintColor: '#fb8c00',
+	inactiveBackgroundColor: '#000',
+	labelStyle: {
+		fontSize: 20,
+		fontWeight: 'bold',
+	},
+	itemStyle: { marginVertical: 20 },
 }
 
 const Drawer = createDrawerNavigator()
@@ -58,27 +60,25 @@ export default function App() {
 	return (
 		<PaperProvider theme={theme}>
 			<NavigationContainer>
-				<Drawer.Navigator screenOptions={screenOptionStyle} headerMode='screen'>
+				<Drawer.Navigator
+					screenOptions={screenOptionStyle}
+					drawerStyle={drawerStyle}
+					drawerContentOptions={ContentOptions}
+				>
 					<Drawer.Screen
 						name='Home'
 						component={TabNav}
-						options={({ route }) => ({
-							headerTitle: getHeaderTitle(route),
-						})}
+						options={{ title: 'Home' }}
 					/>
 					<Drawer.Screen
 						name='Settings'
 						component={Settings}
-						options={({ route }) => ({
-							headerTitle: getHeaderTitle(route),
-						})}
+						options={{ title: 'Settings' }}
 					/>
 					<Drawer.Screen
 						name='About'
 						component={About}
-						options={({ route }) => ({
-							headerTitle: getHeaderTitle(route),
-						})}
+						options={{ title: 'About' }}
 					/>
 				</Drawer.Navigator>
 			</NavigationContainer>
