@@ -13,7 +13,7 @@ import DataDetails from '../screens/DataDetails'
 
 const screenOptionStyle = {
 	headerStyle: {
-		backgroundColor: 'rgba(76, 175, 80, 0.3)',
+		backgroundColor: '#c0ca33',
 	},
 	headerTintColor: '#fff',
 	headerTitleStyle: {

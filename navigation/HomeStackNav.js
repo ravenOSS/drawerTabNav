@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons'
 
 import HomeData from '../screens/HomeData'
 import Home from '../screens/Home'
+import About from '../screens/About'
+import Settings from '../screens/Settings'
 
 const screenOptionStyle = {
 	headerStyle: {
@@ -39,6 +41,8 @@ function HomeStackNav() {
 				})}
 			/>
 			<HomeStack.Screen name='HomeData' component={HomeData} />
+			<HomeStack.Screen name='About' component={About} />
+			<HomeStack.Screen name='Settings' component={Settings} />
 		</HomeStack.Navigator>
 	)
 }
