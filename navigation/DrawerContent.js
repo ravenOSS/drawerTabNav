@@ -59,6 +59,7 @@ export default function DrawerContent({ navigation }) {
 
 				<View style={styles.userInfoSection}>
 					<DrawerItem
+						style={styles.drawerItem}
 						label='About'
 						onPress={() => navigation.navigate('About')}
 					/>
@@ -72,6 +73,9 @@ export default function DrawerContent({ navigation }) {
 					/>
 					<Title style={styles.title}>Douglas Richards</Title>
 					<Caption style={styles.caption}>@djr</Caption>
+					<Title style={styles.title}>Privacy</Title>
+					<Caption style={styles.caption}>Keeping you safe</Caption>
+					<Text>No personal information is stored or transmitted.</Text>
 				</View>
 			</DrawerContentScrollView>
 		</SafeAreaView>
@@ -92,6 +96,7 @@ const styles = StyleSheet.create({
 	caption: {
 		fontSize: 14,
 		lineHeight: 14,
+		fontWeight: 'bold',
 	},
 	row: {
 		marginTop: 20,
@@ -110,6 +115,11 @@ const styles = StyleSheet.create({
 	},
 	drawerSection: {
 		marginTop: 15,
+	},
+	drawerItem: {
+		marginTop: 15,
+		fontSize: 16,
+		fontWeight: 'bold',
 	},
 	preference: {
 		flexDirection: 'row',

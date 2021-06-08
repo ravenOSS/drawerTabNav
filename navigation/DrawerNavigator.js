@@ -43,7 +43,6 @@ const Drawer = createDrawerNavigator()
 export default function DrawerNavigator() {
 	const { colors } = useTheme()
 	return (
-		// <Drawer.Navigator>
 		<Drawer.Navigator
 			drawerStyle={drawerStyle}
 			drawerContent={(props) => <DrawerContent {...props} />}
@@ -54,16 +53,6 @@ export default function DrawerNavigator() {
 				component={TabNav}
 				options={{ title: 'Home' }}
 			/>
-			{/* <Drawer.Screen
-				name='Settings'
-				component={Settings}
-				options={{ title: 'Settings' }}
-			/>
-			<Drawer.Screen
-				name='About'
-				component={About}
-				options={{ title: 'About' }}
-			/> */}
 		</Drawer.Navigator>
 	)
 }
