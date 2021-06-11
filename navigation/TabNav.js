@@ -31,6 +31,7 @@ export default function TabNav(navigation) {
 			initialRouteName='Home'
 			headerShown='true'
 			activeColor='#c0ca33'
+			// activeColor={{ 'colors.primary' }}
 			// activeColor='#ffff8d'
 			inactiveColor='#fb8c00'
 			barStyle={{ backgroundColor: '#000' }}

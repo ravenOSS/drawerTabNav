@@ -3,14 +3,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
-
 import WhoDetails from '../screens/WhoDetails'
 import Who from '../screens/Who'
 import { Button } from 'react-native-paper'
 
 const screenOptionStyle = {
 	headerStyle: {
-		backgroundColor: '#fb8c00',
+		backgroundColor: '#c0ca33',
 	},
 	headerTintColor: '#fff',
 	headerTitleStyle: {

@@ -69,7 +69,7 @@ export default function DrawerContent({ navigation }) {
 					/>
 					<DrawerItem
 						label='God help me....'
-						onPress={() => alert('What can I do?')}
+						onPress={() => alert('What do you want?')}
 					/>
 					<Title style={styles.title}>Douglas Richards</Title>
 					<Caption style={styles.caption}>@djr</Caption>
