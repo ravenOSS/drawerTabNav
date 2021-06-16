@@ -1,9 +1,6 @@
-// import Constants from 'expo-constants'
 import React, { useState, useEffect } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
-import { useColorScheme } from 'react-native'
-// import { Appearance, useColorScheme } from 'react-native'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, useColorScheme, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
@@ -16,8 +13,10 @@ export default function Home({ navigation }) {
 		<View style={[styles.container]}>
 			<Text style={[styles.text]}>ColorScheme(): </Text>
 			<Text style={[styles.text]}>{colorScheme}</Text>
-			<Text style={[styles.text, { color: colors.accent }]}>Color!</Text>
-			<Text style={[styles.text, { color: colors.primary }]}>Home</Text>
+			<Text style={[styles.text, { color: colors.accent }]}>Accent Color!</Text>
+			<Text style={[styles.text, { color: colors.primary }]}>
+				Home (Primary)
+			</Text>
 			<NavButton toWhere='Fetch' title='Fetch' />
 			<NavButton toWhere='Who' title='Who?' />
 			<NavButton toWhere='HomeData' title='HomeData' />

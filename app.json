@@ -1,12 +1,11 @@
 {
-  "name": "drawerTabNav",
-  "displayName": "drawerTabNav",
-  "expo": {
-    "name": "drawerTabNav",
-    "slug": "drawerTabNav",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  }
+	"name": "drawerTabNav",
+	"displayName": "drawerTabNav",
+	"expo": {
+		"name": "drawerTabNav",
+		"slug": "drawerTabNav",
+		"version": "1.0.0",
+		"assetBundlePatterns": ["**/*"],
+		"userInterfaceStyle": "automatic"
+	}
 }

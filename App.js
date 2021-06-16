@@ -1,27 +1,23 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { Appearance, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 // import * as React from 'react'
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper'
+import { Provider as PaperProvider } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DrawerNavigator from './navigation/DrawerNavigator'
-
-const theme = {
-	...DefaultTheme,
-	roundness: 2,
-	colors: {
-		...DefaultTheme.colors,
-		// primary: '#fb8c00',
-		// accent: 'grey100',
-		background: 'rgba(76, 175, 80, 0.3)',
-	},
-}
+import { CombinedDefaultTheme, CombinedDarkTheme } from './utilities/Theming'
 
 export default function App() {
+	let pref = useColorScheme() == 'dark' ? 'dark' : 'default'
+	console.log(`appSetting: ${pref}`)
+	let theme =
+		useColorScheme() === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme
+	console.log(`appPreference: ${JSON.stringify(theme)}`)
+
 	return (
 		<SafeAreaProvider>
 			<PaperProvider theme={theme}>
-				<NavigationContainer>
+				<NavigationContainer theme={theme}>
 					<DrawerNavigator />
 				</NavigationContainer>
 			</PaperProvider>

@@ -11,8 +11,6 @@ import {
 	useTheme,
 } from 'react-native-paper'
 
-// import { SafeAreaProvider } from 'react-native-safe-area-context'
-
 const screenOptionStyle = {
 	headerStyle: {
 		backgroundColor: '#c0ca33',

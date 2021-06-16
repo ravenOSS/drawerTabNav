@@ -7,7 +7,7 @@ export default function Who({ navigation }) {
 	const paperTheme = useTheme()
 
 	return (
-		<View style={(paperTheme.backgroundColor, styles.container)}>
+		<View style={(paperTheme.background, styles.container)}>
 			<Text style={styles.text}>Scan ID</Text>
 			<NavButton toWhere='Home' title='Home' />
 			<NavButton toWhere='Fetch' title='Fetch' />
@@ -21,8 +21,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		// backgroundColor: 'paperTheme.colors.backgroundColor',
-		// backgroundColor: '#121212',
 	},
 	text: {
 		fontSize: 30,
