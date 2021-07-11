@@ -1,26 +1,58 @@
 import { NavigationContainer } from '@react-navigation/native'
-import React, { useState, useEffect } from 'react'
-import { useColorScheme } from 'react-native'
-// import * as React from 'react'
-import { Provider as PaperProvider } from 'react-native-paper'
+import React, { useContext, useEffect, useState } from 'react'
+
+import { Provider as PaperProvider, useTheme } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DrawerNavigator from './navigation/DrawerNavigator'
-import { CombinedDefaultTheme, CombinedDarkTheme } from './utilities/Theming'
+import { useColorScheme } from 'react-native'
+
+import {
+	CombinedDefaultTheme,
+	CombinedDarkTheme,
+	AppPreferenceContext,
+} from './utilities/themeManager'
 
 export default function App() {
-	let pref = useColorScheme() == 'dark' ? 'dark' : 'default'
-	console.log(`appSetting: ${pref}`)
-	let theme =
-		useColorScheme() === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme
-	console.log(`appPreference: ${JSON.stringify(theme)}`)
+	const colorScheme = useColorScheme()
+
+	const [systemTheme, setSystemTheme] = React.useState(
+		colorScheme === 'dark' ? 'dark' : 'light'
+	)
+	const [userTheme, setUserTheme] = React.useState('light')
+
+	function toggleTheme() {
+		console.log(`Theme changed`)
+		setUserTheme((userTheme) => (userTheme === 'light' ? 'dark' : 'light'))
+	}
+
+	const appTheme =
+		systemTheme === 'light' && userTheme === 'dark'
+			? CombinedDarkTheme
+			: systemTheme === 'dark' && userTheme === 'light'
+			? CombinedDefaultTheme
+			: CombinedDarkTheme
+
+	const preferences = React.useMemo(
+		() => ({
+			appTheme,
+			systemTheme,
+			toggleTheme,
+		}),
+		[appTheme, systemTheme, toggleTheme]
+	)
+
+	//? 1.When using Chrome debugger, Light will always be returned.
+	//? 2.App.json must have "userInterfaceStyle": "automatic" under Expo
 
 	return (
 		<SafeAreaProvider>
-			<PaperProvider theme={theme}>
-				<NavigationContainer theme={theme}>
-					<DrawerNavigator />
-				</NavigationContainer>
-			</PaperProvider>
+			<AppPreferenceContext.Provider value={preferences}>
+				<PaperProvider theme={appTheme}>
+					<NavigationContainer theme={appTheme}>
+						<DrawerNavigator />
+					</NavigationContainer>
+				</PaperProvider>
+			</AppPreferenceContext.Provider>
 		</SafeAreaProvider>
 	)
 }

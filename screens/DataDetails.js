@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
-export default function DataDetails({ navigation }) {
+const DataDetails = ({ navigation }) => {
 	const { colors } = useTheme()
 	return (
 		<View style={styles.container}>
@@ -28,3 +28,5 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 	},
 })
+
+export {DataDetails}

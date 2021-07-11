@@ -1,15 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { Button } from 'react-native-paper'
 import { Ionicons } from '@expo/vector-icons'
-import {
-	DefaultTheme,
-	DarkTheme,
-	useTheme,
-	Provider as PaperProvider,
-} from 'react-native-paper'
 import React from 'react'
-import DataFetch from '../screens/DataFetch'
-import DataDetails from '../screens/DataDetails'
+import { DataFetch } from '../screens/DataFetch'
+import { DataDetails } from '../screens/DataDetails'
 
 const screenOptionStyle = {
 	headerStyle: {

@@ -1,23 +1,18 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
 import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import {
+	Avatar,
 	Caption,
+	Drawer,
+	Paragraph,
 	Switch,
 	Text,
 	Title,
-	TouchableRipple,
 	useTheme,
 } from 'react-native-paper'
-import {
-	AppPreferenceContext,
-	CombinedDefaultTheme,
-	CombinedDarkTheme,
-	getAppTheme,
-	getSystemTheme,
-	setAppTheme,
-} from '../utilities/themeManager'
 
 const screenOptionStyle = {
 	headerStyle: {
@@ -50,22 +45,29 @@ const ContentOptions = {
 	itemStyle: { marginVertical: 20 },
 }
 
+const storeUserPreference = async (userPref) => {
+	try {
+		await AsyncStorage.setItem('appThemeSetting', userPref)
+	} catch (e) {
+		console.error(e)
+	}
+	console.log(`userPref ${userPref} stored`)
+}
+
 export default function DrawerContent({ navigation }) {
-	const paperTheme = useTheme()
-	const { toggleTheme, appTheme } = React.useContext(AppPreferenceContext)
+	const [isDarkTheme, setIsDarkTheme] = useState(false)
+
+	const toggleSwitch = React.useCallback(() => {
+		return setIsDarkTheme(!darkTheme)
+	}, [isDarkTheme])
+
+	IsDarkTheme ? storeUserPreference('dark') : storeUserPreference('light')
+	console.log(`Dark Switch is ${darkTheme}`)
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Text>{appTheme === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
-			<TouchableRipple>
-				<Switch
-					style={[{ backgroundColor: paperTheme.colors.accent }]}
-					color={'red'}
-					value={appTheme === CombinedDarkTheme}
-					onValueChange={toggleTheme}
-				/>
-			</TouchableRipple>
-
+			<Text>{darkTheme ? 'Switch is ON' : 'Switch is OFF'}</Text>
+			<Switch onValueChange={toggleSwitch} value={darkTheme} />
 			<DrawerContentScrollView>
 				<TouchableOpacity
 					style={{ marginLeft: 10 }}
