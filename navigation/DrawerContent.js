@@ -52,19 +52,20 @@ const ContentOptions = {
 
 export default function DrawerContent({ navigation }) {
 	const paperTheme = useTheme()
-	const { toggleTheme, appTheme } = React.useContext(AppPreferenceContext)
+	const { toggleTheme, userTheme, appTheme } =
+		React.useContext(AppPreferenceContext)
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Text>{appTheme === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
-			<TouchableRipple>
-				<Switch
-					style={[{ backgroundColor: paperTheme.colors.accent }]}
-					color={'red'}
-					value={appTheme === CombinedDarkTheme}
-					onValueChange={toggleTheme}
-				/>
-			</TouchableRipple>
+			<Text>{userTheme === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
+			{/* <TouchableRipple onPress={toggleTheme}> */}
+			<Switch
+				style={[{ backgroundColor: paperTheme.colors.accent }]}
+				color={'red'}
+				value={userTheme === 'dark'}
+				onValueChange={toggleTheme}
+			/>
+			{/* </TouchableRipple> */}
 
 			<DrawerContentScrollView>
 				<TouchableOpacity

@@ -33,7 +33,8 @@ const CombinedDarkTheme = {
 
 export const AppPreferenceContext = React.createContext({
 	systemTheme: 'light',
-	userTheme: 'light',
+	userTheme: 'dark',
+	appTheme: undefined,
 	toggleTheme: () => {},
 })
 
