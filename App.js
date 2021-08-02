@@ -9,36 +9,52 @@ import { useColorScheme } from 'react-native'
 import {
 	CombinedDefaultTheme,
 	CombinedDarkTheme,
-	AppPreferenceContext,
+	ThemeContext,
+	getThemePref,
+	setThemePref,
 } from './utilities/themeManager'
+import { color } from 'react-native-reanimated'
 
 export default function App() {
-	const colorScheme = useColorScheme()
+	//! On first use of app, set the color scheme to the OS color
+	//! After first use, storedThemePref !== null
+	//! Unless saved scheme !null
+	//! How to read theme from storage and assure value is available
+	//! before setting userTheme?
+	let colorScheme = useColorScheme()
+	console.log(`colorScheme: ${colorScheme}`)
+	const [userTheme, setUserTheme] = useState(colorScheme)
+	const [storedTheme, setStoredTheme] = useState(null)
 
-	const [systemTheme, setSystemTheme] = React.useState(
-		colorScheme === 'dark' ? 'dark' : 'light'
-	)
-	const [userTheme, setUserTheme] = React.useState('light')
+	;(async () => {
+		const getStoredTheme = await getThemePref()
+		setStoredTheme(getStoredTheme)
+		console.log(`retrieved value: ${storedTheme}`) // is this really stored value?
+	})()
 
+	//! nullish coalescing
+	const selectedPref = storedTheme ?? userTheme
+	console.log(`selectedSystemPref: ${selectedPref}`)
+
+	appTheme = selectedPref === 'light' ? CombinedDefaultTheme : CombinedDarkTheme
+
+	//! After the app is initialized we can toggle the userTheme
 	function toggleTheme() {
 		console.log(`Theme changed`)
-		setUserTheme((userTheme) => (userTheme === 'light' ? 'dark' : 'light'))
+		//! Ternary operator is more verbose but its clear what's going on
+		//! IF you know ternary operator!
+		setUserTheme(userTheme === 'light' ? 'dark' : 'light')
+		//! This log prints previous scheme. Why? useState is async!
+		// console.log(`new userTheme: ${userTheme}`)
 	}
-
-	const appTheme =
-		systemTheme === 'light' && userTheme === 'dark'
-			? CombinedDarkTheme
-			: systemTheme === 'dark' && userTheme === 'light'
-			? CombinedDefaultTheme
-			: CombinedDarkTheme
 
 	const preferences = React.useMemo(
 		() => ({
 			appTheme,
-			systemTheme,
+			userTheme,
 			toggleTheme,
 		}),
-		[appTheme, systemTheme, toggleTheme]
+		[appTheme, userTheme, toggleTheme]
 	)
 
 	//? 1.When using Chrome debugger, Light will always be returned.
@@ -46,13 +62,13 @@ export default function App() {
 
 	return (
 		<SafeAreaProvider>
-			<AppPreferenceContext.Provider value={preferences}>
+			<ThemeContext.Provider value={preferences}>
 				<PaperProvider theme={appTheme}>
 					<NavigationContainer theme={appTheme}>
 						<DrawerNavigator />
 					</NavigationContainer>
 				</PaperProvider>
-			</AppPreferenceContext.Provider>
+			</ThemeContext.Provider>
 		</SafeAreaProvider>
 	)
 }

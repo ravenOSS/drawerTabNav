@@ -4,13 +4,13 @@ import {
 	DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native'
 import React from 'react'
-import { useColorScheme } from 'react-native'
+import { useColorScheme, useFocusEffect } from 'react-native'
 import {
 	DarkTheme as PaperDarkTheme,
 	DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper'
 
-const CombinedDefaultTheme = {
+export const CombinedDefaultTheme = {
 	...PaperDefaultTheme,
 	...NavigationDefaultTheme,
 	colors: {
@@ -19,7 +19,7 @@ const CombinedDefaultTheme = {
 		background: 'rgba(76, 175, 80, 0.3)',
 	},
 }
-const CombinedDarkTheme = {
+export const CombinedDarkTheme = {
 	...PaperDarkTheme,
 	...NavigationDarkTheme,
 	colors: {
@@ -31,43 +31,42 @@ const CombinedDarkTheme = {
 
 //! Create context with default value
 
-export const AppPreferenceContext = React.createContext({
-	systemTheme: 'light',
-	userTheme: 'dark',
-	appTheme: undefined,
+export const ThemeContext = React.createContext({
+	appTheme: 'light',
+	userTheme: 'light',
 	toggleTheme: () => {},
 })
 
-// const getSystemTheme = () => {
-// 	let systemTheme = useColorScheme() == 'dark' ? 'dark' : 'light'
-// 	console.log(systemTheme)
-// 	return systemTheme
-// }
+const clearStore = async () => {
+	let keys = []
+	try {
+		keys = await AsyncStorage.getAllKeys()
+		console.log(`Keys: ${keys}`)
 
-// const getAppTheme = async () => {
-// 	try {
-// 		return (storedAppThemeValue = await AsyncStorage.getItem('appThemeSetting'))
-// 		// if (storedAppThemeValue !== null) {
-// 		// 	setUserPref(storedAppThemeValue)
-// 		// 	console.log(`userPref fetched in theming: ${storedAppThemeValue}`)
-// 		// }
-// 	} catch (e) {
-// 		console.log(`Theming did not get category: {e}`)
-// 	}
-// 	return storedAppThemeValue
-// }
+		await AsyncStorage.multiRemove(keys)
+	} catch (e) {
+		console.error(`Did not clear data: {e}`)
+	}
+}
 
-// const setAppTheme = async () => {
-// 	try {
-// 		const storeAppThemeValue = await AsyncStorage.setItem(
-// 			'appThemeSetting',
-// 			userPref
-// 		)
-// 		console.log(`userPref written in theming: ${storeAppThemeValue}`)
-// 	} catch (e) {
-// 		console.log(`Theming did not set pref category: {e}`)
-// 	}
-// }
+const getThemePref = async () => {
+	try {
+		return await AsyncStorage.getItem('ThemePref')
+	} catch (e) {
+		console.log(`Theming did not get category: ${e}`)
+	}
+	console.log(`Complete`)
+}
+
+const setThemePref = async (theme) => {
+	try {
+		await AsyncStorage.setItem('ThemePref', theme)
+	} catch (e) {
+		console.log(`Theming did not set pref category: {e}`)
+	}
+}
+
+export { clearStore, getThemePref, setThemePref }
 
 // export { getAppTheme, getSystemTheme, setAppTheme }
 

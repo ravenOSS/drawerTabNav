@@ -2,16 +2,34 @@ import React from 'react'
 import { StyleSheet, useColorScheme, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 import { NavButton, NavButtonGoBack } from '../components/NavButtons'
+// import {
+// 	ThemeContext,
+// } from '../utilities/themeManager'
 
 export default function Home({ navigation }) {
 	const { colors } = useTheme()
-
+	const colorScheme = useColorScheme()
 	return (
-		<View style={[styles.container]}>
-			{/* <Text style={[styles.text]}>ColorScheme(): </Text> */}
-			{/* <Text style={[styles.text]}>{colorScheme}</Text> */}
-			<Text style={[styles.text, { color: colors.accent }]}>Accent Color!</Text>
-			<Text style={[styles.text, { color: colors.primary }]}>
+		<View style={[styles.container, { backgroundColor: colors.background }]}>
+			<Text allowFontScaling={false} style={[styles.text]}>
+				OS Theme():
+			</Text>
+
+			<Text allowFontScaling={false} style={[styles.text]}>
+				{colorScheme}
+			</Text>
+
+			<Text
+				allowFontScaling={false}
+				style={[styles.text, { color: colors.accent }]}
+			>
+				Accent Color!
+			</Text>
+
+			<Text
+				allowFontScaling={false}
+				style={[styles.text, { color: colors.primary }]}
+			>
 				Home (Primary)
 			</Text>
 			<NavButton toWhere='Fetch' title='Fetch' />

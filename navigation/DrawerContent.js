@@ -1,8 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import React, { useCallback, useContext, useState } from 'react'
-import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native'
 import {
+	Appearance,
+	SafeAreaView,
+	StyleSheet,
+	TouchableOpacity,
+	useColorScheme,
+	View,
+} from 'react-native'
+import {
+	Button,
 	Caption,
 	Switch,
 	Text,
@@ -11,12 +19,11 @@ import {
 	useTheme,
 } from 'react-native-paper'
 import {
-	AppPreferenceContext,
+	ThemeContext,
 	CombinedDefaultTheme,
 	CombinedDarkTheme,
-	getAppTheme,
-	getSystemTheme,
-	setAppTheme,
+	clearStore,
+	setThemePref,
 } from '../utilities/themeManager'
 
 const screenOptionStyle = {
@@ -52,9 +59,8 @@ const ContentOptions = {
 
 export default function DrawerContent({ navigation }) {
 	const paperTheme = useTheme()
-	const { toggleTheme, userTheme, appTheme } =
-		React.useContext(AppPreferenceContext)
-
+	const { appTheme, userTheme, toggleTheme } = React.useContext(ThemeContext)
+	//! On launch, switch is OFF even with userTheme=OS dark
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<Text>{userTheme === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
@@ -91,12 +97,33 @@ export default function DrawerContent({ navigation }) {
 						label='God help me....'
 						onPress={() => alert('What do you want?')}
 					/>
+					<Caption style={styles.caption}>
+						OS Theme: {Appearance.getColorScheme()}
+					</Caption>
+					{/* <Caption style={styles.caption}>OS Theme:`{useColorScheme()}</Caption> */}
 					<Title style={styles.title}>Douglas Richards</Title>
 					<Caption style={styles.caption}>@djr</Caption>
 					<Title style={styles.title}>Privacy</Title>
 					<Caption style={styles.caption}>Keeping you safe</Caption>
 					<Text>No personal information is stored or transmitted.</Text>
 				</View>
+				<Button
+					icon='camera'
+					mode='contained'
+					onPress={async () => await clearStore()}
+					// onPress={() => console.log('Pressed')}
+				>
+					Clear Store
+				</Button>
+				<Button
+					icon='camera'
+					mode='contained'
+					color='#c62828'
+					onPress={() => setThemePref('dark')}
+					// onPress={async () => await clearStore()}
+				>
+					Set Dark Key
+				</Button>
 			</DrawerContentScrollView>
 		</SafeAreaView>
 	)

@@ -1,14 +1,15 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, useColorScheme, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 import { useFocusEffect } from '@react-navigation/native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { AppPreferenceContext } from '../utilities/themeManager'
+import { ThemeContext } from '../utilities/themeManager'
+// import { useColorScheme } from 'react-native-appearance'
 
 {
-	/* <AppPreferenceContext.Consumer> */
+	/* <ThemeContext.Consumer> */
 }
 const DataFetch = ({ navigation }) => {
 	const paperTheme = useTheme()
@@ -18,11 +19,13 @@ const DataFetch = ({ navigation }) => {
 			<NavButton title='Home' toWhere='Home' />
 			<NavButton title='Who' toWhere='Who' />
 			<NavButton title='Data Details' toWhere='DataDetails' />
-			<Text style={{ color: paperTheme.colors.background }}>Context</Text>
+			<Text style={{ color: paperTheme.colors.error }}>
+				OS Theme: {useColorScheme()}
+			</Text>
 		</View>
 	)
 }
-// </AppPreferenceContext.Consumer>
+// </ThemeContext.Consumer>
 
 const styles = StyleSheet.create({
 	container: {
