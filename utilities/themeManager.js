@@ -33,7 +33,7 @@ export const CombinedDarkTheme = {
 
 export const ThemeContext = React.createContext({
 	appTheme: 'light',
-	userTheme: 'light',
+	osTheme: 'light',
 	toggleTheme: () => {},
 })
 

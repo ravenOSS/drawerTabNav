@@ -20,10 +20,10 @@ export default function App() {
 	//! After first use, storedThemePref !== null
 	//! Unless saved scheme !null
 	//! How to read theme from storage and assure value is available
-	//! before setting userTheme?
+	//! before setting storedTheme?
 	let colorScheme = useColorScheme()
 	console.log(`colorScheme: ${colorScheme}`)
-	const [userTheme, setUserTheme] = useState(colorScheme)
+	const [osTheme, setOsTheme] = useState(colorScheme)
 	const [storedTheme, setStoredTheme] = useState(null)
 
 	;(async () => {
@@ -33,7 +33,7 @@ export default function App() {
 	})()
 
 	//! nullish coalescing
-	const selectedPref = storedTheme ?? userTheme
+	const selectedPref = storedTheme ?? osTheme
 	console.log(`selectedSystemPref: ${selectedPref}`)
 
 	appTheme = selectedPref === 'light' ? CombinedDefaultTheme : CombinedDarkTheme
@@ -43,18 +43,17 @@ export default function App() {
 		console.log(`Theme changed`)
 		//! Ternary operator is more verbose but its clear what's going on
 		//! IF you know ternary operator!
-		setUserTheme(userTheme === 'light' ? 'dark' : 'light')
+		setStoredTheme(osTheme === 'light' ? 'dark' : 'light')
 		//! This log prints previous scheme. Why? useState is async!
-		// console.log(`new userTheme: ${userTheme}`)
 	}
 
 	const preferences = React.useMemo(
 		() => ({
 			appTheme,
-			userTheme,
+			osTheme,
 			toggleTheme,
 		}),
-		[appTheme, userTheme, toggleTheme]
+		[appTheme, osTheme, toggleTheme]
 	)
 
 	//? 1.When using Chrome debugger, Light will always be returned.

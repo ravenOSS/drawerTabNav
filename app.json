@@ -6,6 +6,12 @@
 		"slug": "drawerTabNav",
 		"version": "1.0.0",
 		"assetBundlePatterns": ["**/*"],
-		"userInterfaceStyle": "automatic"
+		"userInterfaceStyle": "automatic",
+		"ios": {
+			"userInterfaceStyle": "automatic"
+		},
+		"android": {
+			"userInterfaceStyle": "automatic"
+		}
 	}
 }
