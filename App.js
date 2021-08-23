@@ -7,57 +7,65 @@ import DrawerNavigator from './navigation/DrawerNavigator'
 import { useColorScheme } from 'react-native'
 
 import {
-	CombinedDefaultTheme,
-	CombinedDarkTheme,
+	LightTheme,
+	DarkTheme,
 	ThemeContext,
 	getThemePref,
 	setThemePref,
 } from './utilities/themeManager'
-import { color } from 'react-native-reanimated'
 
 export default function App() {
+	const [firstRender, setFirstRender] = useState(true)
+
 	//! On first use of app, set the color scheme to the OS color
-	//! After first use, storedThemePref !== null
-	//! Unless saved scheme !null
-	//! How to read theme from storage and assure value is available
-	//! before setting storedTheme?
-	let colorScheme = useColorScheme()
-	console.log(`colorScheme: ${colorScheme}`)
-	const [osTheme, setOsTheme] = useState(colorScheme)
-	const [storedTheme, setStoredTheme] = useState(null)
+	const colorScheme = useColorScheme()
+
+	//! This sets the initial app theme to the OS theme
+	const [osTheme, setOSTheme] = useState(colorScheme)
+	console.log(`osColorScheme: ${colorScheme}`)
+
+	const [userTheme, setUserTheme] = useState(null)
+	const [savedTheme, setSavedTheme] = useState(null)
+	// const [appPref, setAppPref] = useState(null)
+
+	//! Get the stored theme preference
 
 	;(async () => {
-		const getStoredTheme = await getThemePref()
-		setStoredTheme(getStoredTheme)
-		console.log(`retrieved value: ${storedTheme}`) // is this really stored value?
+		const StoredTheme = await getThemePref()
+		setSavedTheme(StoredTheme)
+		// setFirstRender(false)
+		console.log(`retrieved value: ${userTheme}`) // is this really stored value?
 	})()
 
+	// useEffect(() => {
+	// 	if (firstRender) {
+	// 		themePref()
+	// 	}
+	// }, [userTheme])
+
 	//! nullish coalescing
-	const selectedPref = storedTheme ?? osTheme
-	console.log(`selectedSystemPref: ${selectedPref}`)
+	const appPref = savedTheme ?? osTheme
 
-	appTheme = selectedPref === 'light' ? CombinedDefaultTheme : CombinedDarkTheme
+	appTheme = appPref === 'light' ? LightTheme : DarkTheme
 
-	//! After the app is initialized we can toggle the userTheme
+	//! After the app is initialized we can toggle the theme
 	function toggleTheme() {
 		console.log(`Theme changed`)
-		//! Ternary operator is more verbose but its clear what's going on
-		//! IF you know ternary operator!
-		setStoredTheme(osTheme === 'light' ? 'dark' : 'light')
-		//! This log prints previous scheme. Why? useState is async!
+		setUserTheme(userTheme === 'light' ? 'dark' : 'light')
 	}
 
 	const preferences = React.useMemo(
 		() => ({
-			appTheme,
 			osTheme,
+			userTheme,
 			toggleTheme,
 		}),
-		[appTheme, osTheme, toggleTheme]
+		[osTheme, appPref, toggleTheme]
 	)
 
 	//? 1.When using Chrome debugger, Light will always be returned.
 	//? 2.App.json must have "userInterfaceStyle": "automatic" under Expo
+	//? plus explicit for ios and android separately
 
 	return (
 		<SafeAreaProvider>
