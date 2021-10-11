@@ -12,14 +12,16 @@ import { ThemeContext } from '../utilities/themeManager'
 	/* <ThemeContext.Consumer> */
 }
 const DataFetch = ({ navigation }) => {
-	const paperTheme = useTheme()
+	const theme = useTheme()
 	return (
-		<View style={styles.container}>
+		<View
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<Text style={styles.text}>Stored Data</Text>
 			<NavButton title='Home' toWhere='Home' />
 			<NavButton title='Who' toWhere='Who' />
 			<NavButton title='Data Details' toWhere='DataDetails' />
-			<Text style={{ color: paperTheme.colors.error }}>
+			<Text style={{ color: theme.colors.error }}>
 				OS Theme: {useColorScheme()}
 			</Text>
 		</View>
@@ -32,9 +34,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		// padding: Constants.statusBarHeight,
-
-		// margin: 60,
 	},
 	text: {
 		fontSize: 30,

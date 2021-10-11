@@ -7,10 +7,12 @@ import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 // } from '../utilities/themeManager'
 
 export default function Home({ navigation }) {
-	const { colors } = useTheme()
+	const theme = useTheme()
 	const colorScheme = useColorScheme()
 	return (
-		<View style={[styles.container, { backgroundColor: colors.background }]}>
+		<View
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<Text allowFontScaling={false} style={[styles.text]}>
 				OS Theme():
 			</Text>
@@ -21,14 +23,14 @@ export default function Home({ navigation }) {
 
 			<Text
 				allowFontScaling={false}
-				style={[styles.text, { color: colors.accent }]}
+				style={[styles.text, { color: theme.colors.accent }]}
 			>
 				Accent Color!
 			</Text>
 
 			<Text
 				allowFontScaling={false}
-				style={[styles.text, { color: colors.primary }]}
+				style={[styles.text, { color: theme.colors.primary }]}
 			>
 				Home (Primary)
 			</Text>

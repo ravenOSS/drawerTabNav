@@ -4,10 +4,12 @@ import { Text, useTheme } from 'react-native-paper'
 import { NavButton, NavButtonGoBack } from '../components/NavButtons'
 
 export default function Who({ navigation }) {
-	const paperTheme = useTheme()
+	const theme = useTheme()
 
 	return (
-		<View style={(paperTheme.background, styles.container)}>
+		<View
+			style={[styles.container, { backgroundColor: theme.colors.background }]}
+		>
 			<Text style={styles.text}>Scan ID</Text>
 			<NavButton toWhere='Home' title='Home' />
 			<NavButton toWhere='Fetch' title='Fetch' />

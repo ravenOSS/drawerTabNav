@@ -111,8 +111,8 @@ const { colors } = theme
 // import { useColorScheme } from 'react-native'
 
 // import {
-// 	CombinedDefaultTheme,
-// 	CombinedDarkTheme,
+// 	LightTheme,
+// 	DarkTheme,
 // 	ThemeContext,
 // 	getThemePref,
 // 	setThemePref,
@@ -124,10 +124,10 @@ const { colors } = theme
 // 	//! After first use, storedThemePref !== null
 // 	//! Unless saved scheme !null
 // 	//! How to read theme from storage and assure value is available
-// 	//! before setting userTheme?
+// 	//! before setting appTheme?
 // 	let colorScheme = useColorScheme()
 // 	console.log(`colorScheme: ${colorScheme}`)
-// 	const [userTheme, setUserTheme] = useState(colorScheme)
+// 	const [appTheme, setappTheme] = useState(colorScheme)
 // 	const [storedTheme, setStoredTheme] = useState(null)
 
 // 	;(async () => {
@@ -137,28 +137,28 @@ const { colors } = theme
 // 	})()
 
 // 	//! nullish coalescing
-// 	const selectedPref = storedTheme ?? userTheme
+// 	const selectedPref = storedTheme ?? appTheme
 // 	console.log(`selectedSystemPref: ${selectedPref}`)
 
-// 	appTheme = selectedPref === 'light' ? CombinedDefaultTheme : CombinedDarkTheme
+// 	appTheme = selectedPref === 'light' ? LightTheme : DarkTheme
 
-// 	//! After the app is initialized we can toggle the userTheme
+// 	//! After the app is initialized we can toggle the appTheme
 // 	function toggleTheme() {
 // 		console.log(`Theme changed`)
 // 		//! Ternary operator is more verbose but its clear what's going on
 // 		//! IF you know ternary operator!
-// 		setUserTheme(userTheme === 'light' ? 'dark' : 'light')
+// 		setappTheme(appTheme === 'light' ? 'dark' : 'light')
 // 		//! This log prints previous scheme. Why? useState is async!
-// 		// console.log(`new userTheme: ${userTheme}`)
+// 		// console.log(`new appTheme: ${appTheme}`)
 // 	}
 
 // 	const preferences = React.useMemo(
 // 		() => ({
 // 			appTheme,
-// 			userTheme,
+// 			appTheme,
 // 			toggleTheme,
 // 		}),
-// 		[appTheme, userTheme, toggleTheme]
+// 		[appTheme, appTheme, toggleTheme]
 // 	)
 
 // 	//? 1.When using Chrome debugger, Light will always be returned.

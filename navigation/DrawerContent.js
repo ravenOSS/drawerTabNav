@@ -20,8 +20,8 @@ import {
 } from 'react-native-paper'
 import {
 	ThemeContext,
-	CombinedDefaultTheme,
-	CombinedDarkTheme,
+	LightTheme,
+	DarkTheme,
 	clearStore,
 	setThemePref,
 } from '../utilities/themeManager'
@@ -58,17 +58,19 @@ const ContentOptions = {
 }
 
 export default function DrawerContent({ navigation }) {
-	const paperTheme = useTheme()
-	const { appTheme, userTheme, toggleTheme } = React.useContext(ThemeContext)
-	//! On launch, switch is OFF even with userTheme=OS dark
+	const theme = useTheme()
+
+	const { appPreference, toggleTheme } = React.useContext(ThemeContext)
+
+	//! On launch, switch is OFF even with appTheme=OS dark
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Text>{userTheme === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
+			<Text>{appPreference === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
 			{/* <TouchableRipple onPress={toggleTheme}> */}
 			<Switch
-				style={[{ backgroundColor: paperTheme.colors.accent }]}
+				style={[{ backgroundColor: theme.colors.accent }]}
 				color={'red'}
-				value={userTheme === 'dark'}
+				value={appPreference === 'dark'}
 				onValueChange={toggleTheme}
 			/>
 			{/* </TouchableRipple> */}

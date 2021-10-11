@@ -1,12 +1,12 @@
 import { Button, Colors, useTheme } from 'react-native-paper'
 
 const Layout = (props) => {
-	const { colors } = props.theme
+	const theme = useTheme()
 	return (
 		<SafeAreaView
 			style={{
 				flex: 1,
-				backgroundColor: colors.background,
+				backgroundColor: theme.colors.background,
 			}}
 		>
 			<View
@@ -14,7 +14,7 @@ const Layout = (props) => {
 					flex: 1,
 					alignItems: 'center',
 					justifyContent: 'center',
-					backgroundColor: colors.background,
+					backgroundColor: theme.colors.background,
 				}}
 			/>
 		</SafeAreaView>

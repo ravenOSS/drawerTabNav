@@ -10,7 +10,7 @@ import {
 	DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper'
 
-export const CombinedDefaultTheme = {
+export const LightTheme = {
 	...PaperDefaultTheme,
 	...NavigationDefaultTheme,
 	colors: {
@@ -19,7 +19,7 @@ export const CombinedDefaultTheme = {
 		background: 'rgba(76, 175, 80, 0.3)',
 	},
 }
-export const CombinedDarkTheme = {
+export const DarkTheme = {
 	...PaperDarkTheme,
 	...NavigationDarkTheme,
 	colors: {
@@ -32,8 +32,7 @@ export const CombinedDarkTheme = {
 //! Create context with default value
 
 export const ThemeContext = React.createContext({
-	appTheme: 'light',
-	osTheme: 'light',
+	appPreference: '',
 	toggleTheme: () => {},
 })
 
@@ -49,33 +48,40 @@ const clearStore = async () => {
 	}
 }
 
-const getThemePref = async () => {
+//! Get a value for the storedTheme
+const getStoredTheme = async () => {
 	try {
 		return await AsyncStorage.getItem('ThemePref')
 	} catch (e) {
-		console.log(`Theming did not get category: ${e}`)
+		console.log(`getStoredTheme failed`)
+		console.log(e)
 	}
 	console.log(`Complete`)
 }
 
-const setThemePref = async (theme) => {
+//! Set a value (light/dark)
+//! asyncStorage will return null but not accept
+//! null or undefined
+const setStoredTheme = async (theme) => {
+	console.log(`received theme: ${theme}`)
 	try {
 		await AsyncStorage.setItem('ThemePref', theme)
 	} catch (e) {
-		console.log(`Theming did not set pref category: {e}`)
+		console.log(`SetStoredTheme failed`)
+		console.log(e)
 	}
 }
 
-export { clearStore, getThemePref, setThemePref }
+export { clearStore, getStoredTheme, setStoredTheme }
 
 // export { getAppTheme, getSystemTheme, setAppTheme }
 
 // 	const theme =
 // 		systemPreference == 'light' && userPref == 'dark'
-// 			? CombinedDarkTheme
+// 			? DarkTheme
 // 			: systemPreference == 'dark' && userPref == 'light'
-// 			? CombinedDefaultTheme
-// 			: CombinedDarkTheme
+// 			? LightTheme
+// 			: DarkTheme
 
 // 	console.log(`Constructed theme: ${JSON.stringify(theme)}`)
 // 	return theme

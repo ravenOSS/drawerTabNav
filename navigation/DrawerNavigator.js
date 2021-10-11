@@ -41,7 +41,7 @@ const ContentOptions = {
 const Drawer = createDrawerNavigator()
 
 export default function DrawerNavigator() {
-	const { colors } = useTheme()
+	const theme = useTheme()
 	return (
 		<Drawer.Navigator
 			drawerStyle={drawerStyle}
