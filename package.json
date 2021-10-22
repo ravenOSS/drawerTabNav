@@ -25,13 +25,15 @@
     "react-native-appearance": "~0.3.3",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-paper": "^4.8.1",
-    "react-native-reanimated": "~2.2.0",
+    "react-native-reanimated": "^2.2.3",
     "react-native-safe-area-context": "3.2.0",
     "react-native-unimodules": "~0.14.5",
     "react-native-web": "~0.13.12"
   },
   "private": true,
   "devDependencies": {
-    "@babel/core": "^7.15.5"
+    "@babel/core": "^7.15.5",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }
