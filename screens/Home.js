@@ -1,26 +1,34 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
 import { StyleSheet, useColorScheme, View } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
-import { NavButton, NavButtonGoBack } from '../components/NavButtons'
-// import {
-// 	ThemeContext,
-// } from '../utilities/themeManager'
+import { NavButton } from '../components/NavButtons'
+import { ThemeContext } from '../utilities/themeManager'
 
 export default function Home({ navigation }) {
+	const { isDark } = useContext(ThemeContext)
+
 	const theme = useTheme()
-	const colorScheme = useColorScheme()
+
+	let homeColor = useColorScheme()
+
 	return (
 		<View
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
-			<Text allowFontScaling={false} style={[styles.text]}>
-				OS Theme():
+			<Text allowFontScaling={true} style={[styles.text]}>
+				Appearance:{' '}
+				<Text allowFontScaling={true} style={[styles.text]}>
+					{isDark ? 'Dark Mode' : 'Light Mode'}
+				</Text>
 			</Text>
 
-			<Text allowFontScaling={false} style={[styles.text]}>
-				{colorScheme}
+			<Text
+				allowFontScaling={false}
+				style={[styles.text, { color: theme.colors.accent }]}
+			>
+				osColor: {homeColor}
 			</Text>
-
 			<Text
 				allowFontScaling={false}
 				style={[styles.text, { color: theme.colors.accent }]}
@@ -51,7 +59,7 @@ const styles = StyleSheet.create({
 		// margin: 60,
 	},
 	text: {
-		fontSize: 30,
+		fontSize: 25,
 		fontWeight: '700',
 	},
 })

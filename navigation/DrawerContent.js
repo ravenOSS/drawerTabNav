@@ -1,12 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
+/* eslint-disable react/prop-types */
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
-import React, { useCallback, useContext, useState } from 'react'
+import React from 'react'
 import {
 	Appearance,
 	SafeAreaView,
 	StyleSheet,
 	TouchableOpacity,
-	useColorScheme,
+	Alert,
 	View,
 } from 'react-native'
 import {
@@ -20,10 +20,8 @@ import {
 } from 'react-native-paper'
 import {
 	ThemeContext,
-	LightTheme,
-	DarkTheme,
 	clearStore,
-	setThemePref,
+	setStoredTheme,
 } from '../utilities/themeManager'
 
 const screenOptionStyle = {
@@ -60,17 +58,17 @@ const ContentOptions = {
 export default function DrawerContent({ navigation }) {
 	const theme = useTheme()
 
-	const { appPreference, toggleTheme } = React.useContext(ThemeContext)
+	const { appTheme, toggleTheme } = React.useContext(ThemeContext)
 
-	//! On launch, switch is OFF even with appTheme=OS dark
+	//! On launch, switch is OFF even with appPreference=OS dark
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Text>{appPreference === 'dark' ? 'Switch is ON' : 'Switch is OFF'}</Text>
+			<Text>{appTheme === 'DarkTheme' ? 'Switch is ON' : 'Switch is OFF'}</Text>
 			{/* <TouchableRipple onPress={toggleTheme}> */}
 			<Switch
 				style={[{ backgroundColor: theme.colors.accent }]}
 				color={'red'}
-				value={appPreference === 'dark'}
+				value={appTheme === 'darkTheme'}
 				onValueChange={toggleTheme}
 			/>
 			{/* </TouchableRipple> */}
@@ -97,7 +95,7 @@ export default function DrawerContent({ navigation }) {
 					/>
 					<DrawerItem
 						label='God help me....'
-						onPress={() => alert('What do you want?')}
+						onPress={() => Alert('What do you want?')}
 					/>
 					<Caption style={styles.caption}>
 						OS Theme: {Appearance.getColorScheme()}
@@ -121,7 +119,7 @@ export default function DrawerContent({ navigation }) {
 					icon='camera'
 					mode='contained'
 					color='#c62828'
-					onPress={() => setThemePref('dark')}
+					onPress={() => setStoredTheme('dark')}
 					// onPress={async () => await clearStore()}
 				>
 					Set Dark Key

@@ -4,7 +4,6 @@ import {
 	DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native'
 import React from 'react'
-import { useColorScheme, useFocusEffect } from 'react-native'
 import {
 	DarkTheme as PaperDarkTheme,
 	DefaultTheme as PaperDefaultTheme,
@@ -30,9 +29,8 @@ export const DarkTheme = {
 }
 
 //! Create context with default value
-
 export const ThemeContext = React.createContext({
-	appPreference: '',
+	appTheme: LightTheme,
 	toggleTheme: () => {},
 })
 
@@ -49,30 +47,54 @@ const clearStore = async () => {
 }
 
 //! Get a value for the storedTheme
-const getStoredTheme = async () => {
+const getStoredTheme = async (key) => {
 	try {
-		return await AsyncStorage.getItem('ThemePref')
-	} catch (e) {
-		console.log(`getStoredTheme failed`)
-		console.log(e)
+		const pref = await AsyncStorage.getItem(key)
+		return pref
+	} catch (error) {
+		console.log(`getStoredItem failed ${error}`)
 	}
-	console.log(`Complete`)
 }
 
 //! Set a value (light/dark)
 //! asyncStorage will return null but not accept
 //! null or undefined
-const setStoredTheme = async (theme) => {
-	console.log(`received theme: ${theme}`)
+const setStoredTheme = async (key, value) => {
+	console.log(`received theme: ${value}`)
 	try {
-		await AsyncStorage.setItem('ThemePref', theme)
-	} catch (e) {
-		console.log(`SetStoredTheme failed`)
-		console.log(e)
+		await AsyncStorage.setItem(key, value)
+	} catch (error) {
+		console.log(`SetStoredTheme failed ${error}`)
 	}
 }
 
 export { clearStore, getStoredTheme, setStoredTheme }
+
+// export default {
+// 	async setItem(key, value) {
+// 		 try {
+// 				return await AsyncStorage.setItem(key, JSON.stringify(value));
+// 		 } catch (error) {
+// 				// console.error('AsyncStorage#setItem error: ' + error.message);
+// 		 }
+// 	},
+// 	async getItem(key) {
+// 		 return await AsyncStorage.getItem(key)
+// 				.then((result) => {
+// 					 if (result) {
+// 							try {
+// 								 result = JSON.parse(result);
+// 							} catch (e) {
+// 								 // console.error('AsyncStorage#getItem error deserializing JSON for key: ' + key, e.message);
+// 							}
+// 					 }
+// 					 return result;
+// 				});
+// 	},
+// 	async removeItem(key) {
+// 		 return await AsyncStorage.removeItem(key);
+// 	}
+// }
 
 // export { getAppTheme, getSystemTheme, setAppTheme }
 

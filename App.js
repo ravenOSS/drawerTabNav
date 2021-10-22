@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { Provider as PaperProvider, useTheme } from 'react-native-paper'
+import { Provider as PaperProvider } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import DrawerNavigator from './navigation/DrawerNavigator'
-import { useColorScheme } from 'react-native'
+// import { AppearanceProvider, useColorScheme } from 'react-native-appearance'
 
 import {
 	LightTheme,
@@ -14,76 +14,34 @@ import {
 	setStoredTheme,
 } from './utilities/themeManager'
 
+//? Note how logging state shows undefined
+//? yet, in rendered page, state is as expected
 export default function App() {
-	//! This sets the initial app theme to the OS theme
-	const [osTheme, setOsTheme] = useState()
-	const [savedTheme, setSavedTheme] = useState(null)
-	const [appPreference, setAppPreference] = useState('')
-	const [appTheme, setAppTheme] = useState('')
-
-	//! On launch of app, detect the OS color
-	const colorScheme = useColorScheme()
-
-	useEffect(() => {
-		setOsTheme(colorScheme)
-		console.log(`osColorScheme: ${colorScheme}`)
-	}),
-		[]
-
-	//! Get the stored theme preference
-	useEffect(() => {
-		;async () => {
-			const StoredTheme = await getStoredTheme()
-			if (StoredTheme) {
-				setSavedTheme(StoredTheme)
-			}
-		}
-		console.log(`Stored Theme: ${savedTheme}`) // is this really stored value?
-	}),
-		[appPreference]
-
-	//! Determine preference of savedTheme or osTheme
-	useEffect(() => {
-		console.log(`State Saved: ${savedTheme}`)
-		console.log(`state osTheme: ${osTheme}`)
-		//! nullish coalescing - no savedTheme will return null
-		const preference = savedTheme ?? osTheme
-		setAppPreference(preference)
-		appPreference === 'light' ? setAppTheme(LightTheme) : setAppTheme(DarkTheme)
-	})
-
-	useEffect(() => {
-		setStoredTheme(appPreference)
-	}),
-		[appPreference]
+	const [isDark, setIsDark] = useState(getStoredTheme === 'dark' ? true : false)
+	const [appTheme, setAppTheme] = useState(LightTheme) // lightTheme - darkTheme
 
 	//! After the app is initialized we can toggle the theme
-	function toggleTheme() {
+
+	useEffect(() => {
+		getStoredTheme('mode')
+			? setAppTheme(LightTheme)
+			: getStoredTheme('mode') === 'dark'
+			? setAppTheme(DarkTheme)
+			: setAppTheme(LightTheme)
+	}, [])
+
+	const toggleTheme = () => {
 		console.log(`Theme changed`)
-		setAppPreference(appPreference === 'light' ? 'dark' : 'light')
-		console.log(`appPreference: ${appPreference}`)
+		isDark ? setAppTheme(DarkTheme) : setAppTheme(LightTheme)
 	}
 
-	// useEffect(() => {
-	// 	;async () => {
-	// 		await setStoredTheme(appPreference)
-	// 	}
-	// 	appPreference === light ? setAppTheme(LightTheme) : setAppTheme(DarkTheme)
-	// }),
-	// 	[appPreference]
-
-	//! Memoize appPreference
 	const memo = React.useMemo(
 		() => ({
-			appPreference,
-			toggleTheme,
+			appTheme,
+			toggleTheme
 		}),
-		[appPreference, toggleTheme]
+		[appTheme, toggleTheme]
 	)
-
-	//? 1.When using Chrome debugger, Light will always be returned.
-	//? 2.App.json must have "userInterfaceStyle": "automatic" under Expo
-	//? plus explicit for ios and android separately
 
 	return (
 		<SafeAreaProvider>
@@ -97,3 +55,58 @@ export default function App() {
 		</SafeAreaProvider>
 	)
 }
+// const [osTheme, setOsTheme] = useState('') // light - dark
+// const [savedTheme, setSavedTheme] = useState('light') // light - dark
+// const [appPreference, setAppPreference] = useState('light') // light - dark
+// //! Note that useColorScheme hook cannot be used in useEffect
+// let colorScheme = useColorScheme()
+// console.log(`osTheme: ${osTheme}`)
+// useEffect(() => {
+// 	setOsTheme(colorScheme)
+// }, [colorScheme])
+
+// //! Get the stored theme preference
+// useEffect(() => {
+// 	const stored = getStoredTheme('themePref')
+// 	setSavedTheme(stored)
+// }, [])
+
+// //! Determine preference of savedTheme or osTheme
+// useEffect(() => {
+// 	//! nullish coalescing - no savedTheme will return null
+// 	let selected = savedTheme ?? osTheme
+// 	setAppPreference(selected)
+// }, [osTheme, savedTheme])
+
+// //! Set the appTheme to be passed to components
+// useEffect(() => {
+// 	appPreference === 'light' ? setAppTheme(LightTheme) : setAppTheme(DarkTheme)
+// }, [appPreference])
+
+//! After the app is initialized we can toggle the theme
+
+// useEffect(() => {
+// 	setStoredTheme('themePref', appPreference)
+// }, [appPreference])
+
+// useEffect(() => {
+// 	console.log(`osTheme: ${osTheme}`)
+// 	console.log(`state savedTheme: ${savedTheme}`)
+// 	console.log(`state appPreference: ${appPreference}`)
+// 	// console.log(`state savedTheme: ${JSON.stringify(savedTheme)}`)
+// 	// console.log(`state appPreference: ${JSON.stringify(appPreference)}`)
+// 	return () => {}
+// }, [appPreference, osTheme, savedTheme])
+
+//! Memoize appPreference
+
+// const memo = React.useMemo(
+// 	() => ({
+// 		appPreference,
+// 		toggleTheme,
+// 	}),
+// 	[appPreference, toggleTheme]
+// )
+//? 1.When using Chrome debugger, Light will always be returned.
+//? 2.App.json must have "userInterfaceStyle": "automatic" under Expo
+//? plus explicit for ios and android separately

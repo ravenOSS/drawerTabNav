@@ -1,3 +1,8 @@
+// There is no rendering in App.js therefore using cascading useEffects does not work.
+// useEffect is async as well as useState. useState updates upon render. 
+// However, App.js does not contain any UI to render. Therefore, 
+// an attempt to chain effects does not work.
+
 //! IIFE
 useEffect(() => {
 	;(async () => {
@@ -154,11 +159,11 @@ const { colors } = theme
 
 // 	const preferences = React.useMemo(
 // 		() => ({
-// 			appTheme,
+// 			,
 // 			appTheme,
 // 			toggleTheme,
 // 		}),
-// 		[appTheme, appTheme, toggleTheme]
+// 		[appTheme, toggleTheme]
 // 	)
 
 // 	//? 1.When using Chrome debugger, Light will always be returned.
