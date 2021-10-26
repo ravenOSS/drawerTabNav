@@ -10,37 +10,42 @@ import {
 	LightTheme,
 	DarkTheme,
 	ThemeContext,
-	getStoredTheme,
-	setStoredTheme,
+	getStored,
+	setStored,
 } from './utilities/themeManager'
 
-//? Note how logging state shows undefined
-//? yet, in rendered page, state is as expected
 export default function App() {
-	const [isDark, setIsDark] = useState(getStoredTheme === 'dark' ? true : false)
-	const [appTheme, setAppTheme] = useState(LightTheme) // lightTheme - darkTheme
+	const [isDark, setIsDark] = useState('off')
 
-	//! After the app is initialized we can toggle the theme
+	const [appTheme, setAppTheme] = useState()
 
 	useEffect(() => {
-		getStoredTheme('mode')
-			? setAppTheme(LightTheme)
-			: getStoredTheme('mode') === 'dark'
-			? setAppTheme(DarkTheme)
-			: setAppTheme(LightTheme)
+		getStored('mode').then((setting) => {
+			setting !== null ? setIsDark(setting) : setIsDark('off')
+		})
 	}, [])
 
+	useEffect(() => {
+		isDark === 'on' ? setAppTheme(DarkTheme) : setAppTheme(LightTheme)
+	}, [isDark])
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const toggleTheme = () => {
 		console.log(`Theme changed`)
-		isDark ? setAppTheme(DarkTheme) : setAppTheme(LightTheme)
+		isDark === 'on' ? setIsDark('off') : setIsDark('on')
 	}
+
+	useEffect(() => {
+		setStored('mode', isDark)
+		console.log(`Stored theme ${isDark}`)
+	}, [isDark])
 
 	const memo = React.useMemo(
 		() => ({
-			appTheme,
-			toggleTheme
+			isDark,
+			toggleTheme,
 		}),
-		[appTheme, toggleTheme]
+		[isDark, toggleTheme]
 	)
 
 	return (
@@ -67,7 +72,7 @@ export default function App() {
 
 // //! Get the stored theme preference
 // useEffect(() => {
-// 	const stored = getStoredTheme('themePref')
+// 	const stored = getStored('themePref')
 // 	setSavedTheme(stored)
 // }, [])
 

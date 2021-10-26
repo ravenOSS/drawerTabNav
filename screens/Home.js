@@ -18,9 +18,9 @@ export default function Home({ navigation }) {
 		>
 			<Text allowFontScaling={true} style={[styles.text]}>
 				Appearance:{' '}
-				<Text allowFontScaling={true} style={[styles.text]}>
-					{isDark ? 'Dark Mode' : 'Light Mode'}
-				</Text>
+			</Text>
+			<Text allowFontScaling={true} style={[styles.text]}>
+				{isDark === 'on' ? 'Dark Mode' : 'Light Mode'}
 			</Text>
 
 			<Text

@@ -58,17 +58,16 @@ const ContentOptions = {
 export default function DrawerContent({ navigation }) {
 	const theme = useTheme()
 
-	const { appTheme, toggleTheme } = React.useContext(ThemeContext)
+	const { isDark, toggleTheme } = React.useContext(ThemeContext)
 
-	//! On launch, switch is OFF even with appPreference=OS dark
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<Text>{appTheme === 'DarkTheme' ? 'Switch is ON' : 'Switch is OFF'}</Text>
+			<Text>{isDark === 'on' ? 'Switch is ON' : 'Switch is OFF'}</Text>
 			{/* <TouchableRipple onPress={toggleTheme}> */}
 			<Switch
 				style={[{ backgroundColor: theme.colors.accent }]}
 				color={'red'}
-				value={appTheme === 'darkTheme'}
+				value={isDark === 'on'}
 				onValueChange={toggleTheme}
 			/>
 			{/* </TouchableRipple> */}
@@ -119,8 +118,7 @@ export default function DrawerContent({ navigation }) {
 					icon='camera'
 					mode='contained'
 					color='#c62828'
-					onPress={() => setStoredTheme('dark')}
-					// onPress={async () => await clearStore()}
+					onPress={() => setStoredTheme('mode', 'on')}
 				>
 					Set Dark Key
 				</Button>

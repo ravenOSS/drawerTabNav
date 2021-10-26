@@ -30,45 +30,58 @@ export const DarkTheme = {
 
 //! Create context with default value
 export const ThemeContext = React.createContext({
-	appTheme: LightTheme,
+	isDark: 'off',
 	toggleTheme: () => {},
 })
 
-const clearStore = async () => {
+//! Get a value for dark mode
+async function getStored(key) {
+	try {
+		const pref = await AsyncStorage.getItem(key)
+		console.log(`pref: ${pref}`)
+		return JSON.parse(pref)
+	} catch (error) {
+		console.error(`getStoredItem failed ${error}`)
+	}
+}
+// 	async getItem(key) {
+// 		 return await AsyncStorage.getItem(key)
+// 				.then((result) => {
+// 					 if (result) {
+// 							try {
+// 								 result = JSON.parse(result);
+// 							} catch (e) {
+// 								 // console.error('AsyncStorage#getItem error deserializing JSON for key: ' + key, e.message);
+// 							}
+// 					 }
+// 					 return result;
+// 				});
+// 	},
+
+//! Set a value (light/dark)
+//! asyncStorage will return null but not accept
+//! null or undefined
+async function setStored(key, value) {
+	console.log(`received theme: ${value}`)
+	try {
+		await AsyncStorage.setItem(key, JSON.stringify(value))
+	} catch (error) {
+		console.error(`SetStoredTheme failed ${error}`)
+	}
+}
+
+async function clearStore() {
 	let keys = []
 	try {
 		keys = await AsyncStorage.getAllKeys()
 		console.log(`Keys: ${keys}`)
 
 		await AsyncStorage.multiRemove(keys)
-	} catch (e) {
-		console.error(`Did not clear data: {e}`)
-	}
-}
-
-//! Get a value for the storedTheme
-const getStoredTheme = async (key) => {
-	try {
-		const pref = await AsyncStorage.getItem(key)
-		return pref
 	} catch (error) {
-		console.log(`getStoredItem failed ${error}`)
+		console.error(`Did not clear data: {error}`)
 	}
 }
-
-//! Set a value (light/dark)
-//! asyncStorage will return null but not accept
-//! null or undefined
-const setStoredTheme = async (key, value) => {
-	console.log(`received theme: ${value}`)
-	try {
-		await AsyncStorage.setItem(key, value)
-	} catch (error) {
-		console.log(`SetStoredTheme failed ${error}`)
-	}
-}
-
-export { clearStore, getStoredTheme, setStoredTheme }
+export { clearStore, getStored, setStored }
 
 // export default {
 // 	async setItem(key, value) {
@@ -97,17 +110,6 @@ export { clearStore, getStoredTheme, setStoredTheme }
 // }
 
 // export { getAppTheme, getSystemTheme, setAppTheme }
-
-// 	const theme =
-// 		systemPreference == 'light' && userPref == 'dark'
-// 			? DarkTheme
-// 			: systemPreference == 'dark' && userPref == 'light'
-// 			? LightTheme
-// 			: DarkTheme
-
-// 	console.log(`Constructed theme: ${JSON.stringify(theme)}`)
-// 	return theme
-// }
 
 // 	//? When using Chrome debugger, Light will always be returned.
 // 	//? App.json must have "userInterfaceStyle": "automatic" under Expo
