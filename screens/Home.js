@@ -16,7 +16,7 @@ export default function Home({ navigation }) {
 		<View
 			style={[styles.container, { backgroundColor: theme.colors.background }]}
 		>
-			<Text allowFontScaling={true} style={[styles.text]}>
+			<Text allowFontScaling={false} style={[styles.text]}>
 				Appearance:{' '}
 			</Text>
 			<Text allowFontScaling={true} style={[styles.text]}>

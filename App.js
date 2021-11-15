@@ -19,6 +19,7 @@ export default function App() {
 
 	const [appTheme, setAppTheme] = useState()
 
+	// mode is the key for async-storage
 	useEffect(() => {
 		getStored('mode').then((setting) => {
 			setting !== null ? setIsDark(setting) : setIsDark('off')
